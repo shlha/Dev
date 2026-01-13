@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: #0a66c2;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #0a66c2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #004182;
+    }
+
+    .btn-secondary {
+      background-color: #f3f2ef;
+      color: #666;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e8e6e1;
+    }
+
+    .results {
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 15px;
+    }
+
+    .results.success {
+      background-color: #f0f9f4;
+      border: 1px solid #86efac;
+    }
+
+    .results.error {
+      background-color: #fef2f2;
+      border: 1px solid #fca5a5;
+    }
+
+    .results.loading {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+    }
+
+    .result-item {
+      margin-bottom: 10px;
+    }
+
+    .result-label {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .result-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0a66c2;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #0a66c2;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 14px;
+    }
+
+    .disclaimer {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #fef3c7;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #92400e;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>LinkedIn Post Counter</h1>
+  </div>
+
+  <div class="input-section">
+    <div class="input-group">
+      <label for="profileUrl">LinkedIn Profile URL:</label>
+      <input type="url" id="profileUrl" placeholder="https://www.linkedin.com/in/username">
+    </div>
+
+    <div class="button-group">
+      <button id="analyzeBtn" class="btn-primary">Analyze Profile</button>
+      <button id="getCurrentBtn" class="btn-secondary">Use Current Tab</button>
+    </div>
+  </div>
+
+  <div id="results" class="results hidden">
+    <div id="loadingState" class="hidden">
+      <div class="loading-spinner"></div>
+      Analyzing profile...
+    </div>
+
+    <div id="successState" class="hidden">
+      <div class="result-item">
+        <div class="result-label">Posts in last 24 hours:</div>
+        <div class="result-value" id="postCount">0</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Profile:</div>
+        <div id="profileName">Unknown</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Last analyzed:</div>
+        <div id="analysisTime">-</div>
+      </div>
+    </div>
+
+    <div id="errorState" class="hidden">
+      <div class="error-message" id="errorMessage">An error occurred</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Note:</strong> This extension respects LinkedIn's terms of service by only reading publicly visible content on profile pages you visit.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
